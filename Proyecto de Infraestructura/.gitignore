@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log*
+dist/
+build/
+
+# Variables de entorno
+.env
+*.env
+!.env.example
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+
+# Empaquetados de Lambda
+*.zip
+
+# Sistema
+.DS_Store
