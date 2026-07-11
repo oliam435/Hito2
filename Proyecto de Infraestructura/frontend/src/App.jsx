@@ -10,7 +10,7 @@ import Login from './components/Login.jsx';
 import { consultarPatente, listarPatentes, obtenerEstadisticas, obtenerDetalle } from './services/api.js';
 
 // El login solo se exige si VITE_REQUIRE_LOGIN === 'true' (por defecto: sin login).
-const REQUIERE_LOGIN = import.meta.env.VITE_REQUIRE_LOGIN === 'true';
+const REQUIERE_LOGIN = true;
 
 export default function App() {
   const [resultado, setResultado] = useState(null);
