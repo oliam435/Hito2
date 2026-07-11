@@ -6,7 +6,11 @@ import EstadisticasPanel from './components/EstadisticasPanel.jsx';
 import HistorialTable from './components/HistorialTable.jsx';
 import DetalleModal from './components/DetalleModal.jsx';
 import NavTabs from './components/NavTabs.jsx';
+import Login from './components/Login.jsx';
 import { consultarPatente, listarPatentes, obtenerEstadisticas, obtenerDetalle } from './services/api.js';
+
+// El login solo se exige si VITE_REQUIRE_LOGIN === 'true' (por defecto: sin login).
+const REQUIERE_LOGIN = import.meta.env.VITE_REQUIRE_LOGIN === 'true';
 
 export default function App() {
   const [resultado, setResultado] = useState(null);
@@ -18,6 +22,18 @@ export default function App() {
   const [tema, setTema] = useState(() => localStorage.getItem('tema') || 'claro');
   const [modal, setModal] = useState(null); // { cargando, data } o null
   const [vista, setVista] = useState('registrar'); // registrar | estadisticas | historial
+  const [autenticado, setAutenticado] = useState(
+    () => !REQUIERE_LOGIN || localStorage.getItem('auth') === '1'
+  );
+
+  const login = () => {
+    localStorage.setItem('auth', '1');
+    setAutenticado(true);
+  };
+  const logout = () => {
+    localStorage.removeItem('auth');
+    setAutenticado(false);
+  };
 
   // Aplica el tema al <html> y lo recuerda para la próxima visita
   useEffect(() => {
@@ -39,8 +55,8 @@ export default function App() {
   }, [periodo]);
 
   useEffect(() => {
-    cargarDatos();
-  }, [cargarDatos]);
+    if (autenticado) cargarDatos();
+  }, [autenticado, cargarDatos]);
 
   async function verDetalle(patente) {
     setModal({ cargando: true, data: null });
@@ -67,9 +83,13 @@ export default function App() {
     }
   }
 
+  if (!autenticado) {
+    return <Login onLogin={login} />;
+  }
+
   return (
     <>
-      <Header tema={tema} onToggle={toggleTema} />
+      <Header tema={tema} onToggle={toggleTema} onLogout={REQUIERE_LOGIN ? logout : undefined} />
       <NavTabs vista={vista} onVista={setVista} />
       <main className="container">
         {vista === 'registrar' && (

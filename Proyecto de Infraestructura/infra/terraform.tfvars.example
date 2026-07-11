@@ -1,0 +1,8 @@
+aws_region            = "us-east-1"
+project_name          = "patentes"
+environment           = "dev"
+owner                 = "equipo-3"
+alert_email           = "tu-email@ejemplo.com"
+monthly_budget_amount = 10
+# API key de Boostr (la misma de backend/.env). Este archivo está en .gitignore.
+boostr_api_key        = "pega_aqui_tu_api_key_de_boostr"

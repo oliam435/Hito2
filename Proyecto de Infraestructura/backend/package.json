@@ -1,0 +1,23 @@
+{
+  "name": "patentes-backend",
+  "version": "0.1.0",
+  "description": "API para registrar y consultar patentes (DynamoDB-first, fallback a API externa)",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "create-table": "node scripts/create-table.js",
+    "test": "echo \"(pendiente)\" && exit 0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.600.0",
+    "@aws-sdk/lib-dynamodb": "^3.600.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {},
+  "license": "MIT"
+}

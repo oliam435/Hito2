@@ -1,7 +1,8 @@
 function IconoLuna() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      <path d="M20.5 13.3A8.2 8.2 0 1 1 10.7 3.5 6.4 6.4 0 0 0 20.5 13.3z" />
+      <path d="M17.5 4.2l.5 1.4 1.4.5-1.4.5-.5 1.4-.5-1.4-1.4-.5 1.4-.5z" fill="currentColor" stroke="none" />
     </svg>
   );
 }
@@ -9,13 +10,21 @@ function IconoLuna() {
 function IconoSol() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="4" />
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+      <circle cx="12" cy="12" r="4.2" />
+      <path d="M12 2v2.6M12 19.4V22M3.5 3.5l1.9 1.9M18.6 18.6l1.9 1.9M2 12h2.6M19.4 12H22M3.5 20.5l1.9-1.9M18.6 5.4l1.9-1.9" />
     </svg>
   );
 }
 
-export default function Header({ tema, onToggle }) {
+function IconoSalir() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9.5 21H5.5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M15.5 16.5l4.5-4.5-4.5-4.5M20 12H9.5" />
+    </svg>
+  );
+}
+
+export default function Header({ tema, onToggle, onLogout }) {
   const oscuro = tema === 'oscuro';
   return (
     <header>
@@ -25,26 +34,28 @@ export default function Header({ tema, onToggle }) {
       <div className="header">
         <div className="header-top">
           <div className="header-brand">
-            <div className="header-logo">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" color="#fff">
-                <path d="M5 17h14M6.5 17a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm14 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                <path d="M4 17V9l2-4h9l3 4h1a2 2 0 0 1 2 2v6M4 11h16" />
-              </svg>
-            </div>
+            <img className="header-logo" src="/logo.svg" alt="Logo — silueta de auto" />
             <div>
               <div className="uni">Universidad de Los Lagos</div>
               <h1>Sistema de Registro de Patentes</h1>
               <div className="sub">Control de ingreso vehicular</div>
             </div>
           </div>
-          <button
-            className="tema-btn"
-            onClick={onToggle}
-            aria-label={oscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-            title={oscuro ? 'Modo claro' : 'Modo oscuro'}
-          >
-            {oscuro ? <IconoSol /> : <IconoLuna />}
-          </button>
+          <div className="header-actions">
+            <button
+              className="tema-btn"
+              onClick={onToggle}
+              aria-label={oscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+              title={oscuro ? 'Modo claro' : 'Modo oscuro'}
+            >
+              {oscuro ? <IconoSol /> : <IconoLuna />}
+            </button>
+            {onLogout && (
+              <button className="tema-btn" onClick={onLogout} aria-label="Cerrar sesión" title="Cerrar sesión">
+                <IconoSalir />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </header>

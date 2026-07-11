@@ -69,12 +69,8 @@ body { margin: 0; background: var(--bg); color: var(--texto); transition: backgr
   color: #fff; padding: 1.25rem 1.5rem; box-shadow: var(--sombra-md);
 }
 .header-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 920px; margin: 0 auto; }
-.header-brand { display: flex; align-items: center; gap: 0.9rem; }
-.header-logo {
-  flex: none; width: 46px; height: 46px; border-radius: 12px;
-  background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.3);
-  display: flex; align-items: center; justify-content: center;
-}
+.header-brand { display: flex; align-items: center; gap: 1rem; }
+.header-logo { flex: none; height: 46px; width: auto; display: block; }
 .header .uni { font-size: 0.72rem; letter-spacing: 1px; opacity: 0.92; text-transform: uppercase; font-weight: 600; }
 .header h1 { margin: 0.1rem 0 0; font-size: 1.35rem; font-weight: 800; letter-spacing: -0.3px; }
 .header .sub { font-size: 0.82rem; opacity: 0.88; }
@@ -85,6 +81,33 @@ body { margin: 0; background: var(--bg); color: var(--texto); transition: backgr
 }
 .tema-btn:hover { background: rgba(255, 255, 255, 0.26); }
 .tema-btn:active { transform: scale(0.94); }
+.header-actions { display: flex; gap: 0.5rem; flex: none; }
+
+/* --- Pantalla de login --- */
+.login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+.login-card {
+  position: relative; background: var(--card); border: 1px solid var(--borde);
+  border-radius: 20px; box-shadow: var(--sombra-lg); padding: 2.2rem 2rem;
+  width: 100%; max-width: 380px; text-align: center; overflow: hidden;
+}
+.login-tricolor { position: absolute; top: 0; left: 0; right: 0; }
+.login-logo { height: 58px; width: auto; margin-top: 0.6rem; }
+.login-uni { font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-top: 0.7rem; }
+.login-card h1 { font-size: 1.25rem; color: var(--azul-texto); margin: 0.2rem 0 0.2rem; }
+.login-sub { font-size: 0.85rem; color: var(--muted); margin: 0 0 1.4rem; }
+.login-card input {
+  width: 100%; padding: 0.75rem 0.9rem; border: 1px solid var(--input-borde); border-radius: 10px;
+  margin-bottom: 0.7rem; font-size: 0.95rem; background: var(--card); color: var(--texto); font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.login-card input:focus { outline: none; border-color: var(--ulagos-azul); box-shadow: var(--halo); }
+.login-error { color: var(--ulagos-rojo); font-size: 0.84rem; font-weight: 600; margin-bottom: 0.7rem; background: rgba(200,16,46,0.08); padding: 0.55rem; border-radius: 8px; }
+.login-card button {
+  width: 100%; padding: 0.8rem; border: 0; border-radius: 10px; background: var(--ulagos-rojo);
+  color: #fff; font-weight: 700; font-size: 0.98rem; cursor: pointer; font-family: inherit; margin-top: 0.3rem;
+  transition: background 0.15s;
+}
+.login-card button:hover { background: var(--ulagos-rojo-osc); }
 
 /* --- Navegación (pestañas) --- */
 .nav-wrap { background: var(--card); border-bottom: 1px solid var(--borde); box-shadow: var(--sombra-sm); }
@@ -176,6 +199,7 @@ body { margin: 0; background: var(--bg); color: var(--texto); transition: backgr
 .periodo-tabs button.activo { background: var(--ulagos-rojo); color: #fff; box-shadow: var(--sombra-sm); }
 
 /* --- Tarjetas de estadísticas --- */
+.stats-meta { font-size: 0.76rem; color: var(--muted); margin-bottom: 0.8rem; }
 .stats-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.9rem; }
 .stat {
   background: var(--card); border: 1px solid var(--borde); border-radius: var(--r-lg); padding: 1.2rem 1rem;
@@ -186,6 +210,24 @@ body { margin: 0; background: var(--bg); color: var(--texto); transition: backgr
 .stat .lbl { font-size: 0.76rem; color: var(--muted); margin-top: 0.35rem; font-weight: 500; }
 .stat.azul .num { color: var(--azul-texto); }
 .stat.dorado .num { color: var(--ulagos-dorado); }
+.stat.primary { border: 1.5px solid var(--ulagos-rojo); background: rgba(200, 16, 46, 0.04); }
+.stat.primary .num { color: var(--ulagos-rojo); }
+.delta { font-size: 0.72rem; font-weight: 700; margin-left: 0.35rem; letter-spacing: 0; }
+.delta.up { color: #1c7a34; }
+.delta.down { color: var(--ulagos-rojo); }
+
+/* --- Mapa de calor --- */
+.heatmap { display: grid; grid-template-columns: 34px repeat(24, 1fr); gap: 2px; margin-top: 0.4rem; }
+.hm-corner { }
+.hm-hlabel { font-size: 0.55rem; color: var(--muted); text-align: center; }
+.hm-dlabel { font-size: 0.62rem; color: var(--muted); display: flex; align-items: center; }
+.hm-cell { aspect-ratio: 1 / 1; min-height: 13px; border-radius: 2px; background: var(--inset); }
+
+/* Heatmap de una fila (vista Día, últimas 24 h) */
+.heatmap-dia { display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; margin-top: 0.4rem; }
+.heatmap-dia .hm-cell { aspect-ratio: auto; height: 26px; min-height: 26px; border-radius: 3px; }
+.heatmap-dia-axis { display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; margin-top: 5px; }
+.heatmap-dia-axis span { text-align: center; font-size: 0.55rem; color: var(--muted); }
 
 /* --- Gráfico de tráfico --- */
 .chart { background: var(--card); border: 1px solid var(--borde); border-radius: var(--r-lg); padding: 1.2rem 1.4rem; margin-top: 0.9rem; box-shadow: var(--sombra); }
